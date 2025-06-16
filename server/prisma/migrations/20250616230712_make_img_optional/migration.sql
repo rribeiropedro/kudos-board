@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Board" ALTER COLUMN "imgUrl" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Card" ALTER COLUMN "gifUrl" DROP NOT NULL;

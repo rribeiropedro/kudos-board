@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,27 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Board {
+  id       Int      @id @default(autoincrement())
+  author   String
+  category Category
+  title    String
+  imgUrl   String?
+  cards    Card[]
+}
+
+model Card {
+  id      Int    @id @default(autoincrement())
+  title   String
+  message String
+  gifUrl  String?
+  upvotes Int
+  boardId Int
+  board   Board  @relation(fields: [boardId], references: [id])
+}
+
 enum Category {
   CELEBRATION
   INSPIRATION
   THANK_YOU
-}
-
-model Board {
-  id        Int  @id @default(autoincrement())
-  author    String
-  category  Category
-  title     String 
-  imgUrl    String
-  cards     Card[]
-}
-
-model Card {
-  id       Int @id @default(autoincrement())
-  title    String 
-  message  String
-  gifUrl   String
-  upvotes  Int
-  board    Board @relation(fields: [boardId], references: [id])
-  boardId  Int
 }

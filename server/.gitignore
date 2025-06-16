@@ -23,3 +23,5 @@ Icon?
 ._*
 
 /generated/prisma
+prisma/generated/
+prisma/dev.db
