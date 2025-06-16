@@ -1,4 +1,4 @@
-.board-container {
+.grid-container {
   width: 100vw;
   min-height: 60vh;
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   background-color: #f5f5f5;
 }
 
-.board-content {
+.grid-content {
   height: 100%;
   width: 90%;
   display: flex;
@@ -18,7 +18,7 @@
   align-items: center;
 }
 
-.board-title {
+.grid-title {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -26,11 +26,11 @@
   box-sizing: border-box;
 }
 
-.board-title hr {
+.grid-title hr {
   border: 1px solid #000000;
 }
 
-.board-grid {
+.grid {
   width: 100%;
   display: flex;
   flex-wrap: wrap;

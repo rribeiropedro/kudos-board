@@ -1,17 +1,17 @@
 import React from "react";
-import '../styles/board.css'
+import '../styles/card.css'
 
 
 const Board = () => {
   return (
     <div className="card-container">
       <div className="card-info">
-        <img />
+        <img className="board-img" />
         <h1>Title</h1>
         <h3>Category</h3>
-        <div className="btn-container">
+        <div className="board-btn-container">
           <button>View Board</button>
-          <button id="delete-btn">Delete Board</button>
+          <button id="board-delete-btn">Delete Board</button>
         </div>
       </div>
     </div>

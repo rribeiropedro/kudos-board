@@ -1,16 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import Header from "./components/Header"
 import Features from "./components/Features"
-import BoardList from "./components/BoardList"
+import List from "./components/List"
+import Footer from "./components/Footer"
 import './styles/app.css'
 
 function App() {
-
+  const [toggleCard, setToggleCard] = useState(true)
   return (
     <>
       <Header />
       <Features />
-      <BoardList />
+      <List />
+      <Footer />
     </>
   )
 }
