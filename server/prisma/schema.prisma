@@ -11,5 +11,30 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("postgresql://pedrorribeiro@localhost:5432/kudos-board")
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  CELEBRATION
+  INSPIRATION
+  THANK_YOU
+}
+
+model Board {
+  id        Int  @id @default(autoincrement())
+  author    String
+  category  Category
+  title     String 
+  imgUrl    String
+  cards     Card[]
+}
+
+model Card {
+  id       Int @id @default(autoincrement())
+  title    String 
+  message  String
+  gifUrl   String
+  upvotes  Int
+  board    Board @relation(fields: [boardId], references: [id])
+  boardId  Int
 }
