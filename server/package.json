@@ -1,0 +1,26 @@
+{
+  "name": "kudos-board",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rribeiropedro/kudos-board.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rribeiropedro/kudos-board/issues"
+  },
+  "homepage": "https://github.com/rribeiropedro/kudos-board#readme",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "express": "^5.1.0",
+    "pg": "^8.16.0",
+    "prisma": "^6.9.0"
+  }
+}
