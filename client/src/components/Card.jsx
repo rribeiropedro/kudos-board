@@ -7,10 +7,22 @@ const Card = ({ id, title, message, img, upvotes, boardId }) => {
   const { components, setComponents } = useKudos()
 
   const handleDeleteCard = () => {
-    console.log(id)
     fetch(`http://localhost:3000/api/cards/${id}`, {method: 'DELETE'})
       .then(response => {
         setComponents(components.filter(item => item.id !== id))
+      })
+  }
+
+  const handleUpvote = () => {
+    fetch(`http://localhost:3000/api/cards/${id}/upvote`, {method: 'PUT'})
+      .then(respone => respone.json())
+      .then(data => {
+        const index = components.findIndex(item => item.id === id)
+        setComponents(prev => {
+          const updatedList = [...prev]
+          updatedList[index] = data
+          return updatedList
+        })
       })
   }
 
@@ -22,7 +34,7 @@ const Card = ({ id, title, message, img, upvotes, boardId }) => {
         <img className="card-img"/>
       </div>
       <div className="card-btn-container">
-        <button>Update: {upvotes}</button>
+        <button onClick={handleUpvote}>Update: {upvotes}</button>
         <button onClick={handleDeleteCard} id="card-delete-btn">Delete Board</button>
       </div>
     </div>

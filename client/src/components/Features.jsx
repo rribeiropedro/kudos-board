@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import useKudos from "../hooks/useKudos"
+import BoardModal from "./BoardModal"
 import '../styles/features.css'
 
 const Features = () => {
 
-  const { currBoard, setCurrBoard, components, setComponents } = useKudos()
+  const { currBoard, setCurrBoard, components, setComponents, toggleBoardModal, setToggleBoardModal } = useKudos()
 
   const fetchBoards = (query, filter) => {
     let url = "http://localhost:3000/api/boards"
@@ -17,7 +18,9 @@ const Features = () => {
   }
 
   return (
-    <div className="features-container">
+    <>
+      {toggleBoardModal && <BoardModal />}
+      <div className="features-container">
       {currBoard ? (
         <>
           <h1>currBoard</h1>
@@ -48,11 +51,12 @@ const Features = () => {
             }}>Thank You</button>
           </div>
           <div className="create-new-container">
-            <button>Create a New Board</button>
+            <button onClick={() => setToggleBoardModal(true)}>Create a New Board</button>
           </div>
         </>
       )}
     </div>
+    </>
   )
 }
 
