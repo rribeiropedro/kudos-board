@@ -51,7 +51,7 @@ router.post('/cards', async (req, res) => {
 })
 
 router.delete('/cards/:cardId', async (req, res) => {
-  const cardId = Number(req.params.cardId);
+  const cardId = Number(req.params.cardId)
   if (!cardId || isNaN(cardId)) {
     return res.status(400).json({ error: 'Invalid card ID' })
   }
@@ -63,6 +63,26 @@ router.delete('/cards/:cardId', async (req, res) => {
   } catch (error) {
     res.status(404).json({ error: 'Card not found' })
   }
+})
+
+router.put('/cards/:cardId/upvote', async (req, res) => {
+    const cardId = Number(req.params.cardId)
+    if (!cardId || isNaN(cardId)) {
+      return res.status(400).json({ error: 'Invalid card ID' })
+    }
+    try {
+      const updatedCard = await prisma.card.update({
+        where: { id: Number(cardId) },
+        data: {
+          upvotes: {
+            increment: 1
+          },
+        },
+      })
+      res.json(updatedCard)
+    } catch (error) {
+      res.status(404).json({ error: 'Card not found' })
+    }
 })
 
 export default router

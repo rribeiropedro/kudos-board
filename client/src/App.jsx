@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import Features from "./components/Features"
 import List from "./components/List"
 import Footer from "./components/Footer"
+import { ComponentProvider } from "./context/ComponentContext"
 import './styles/app.css'
 
 function App() {
@@ -10,8 +11,10 @@ function App() {
   return (
     <>
       <Header />
-      <Features />
-      <List />
+      <ComponentProvider>
+        <Features />
+        <List />
+      </ComponentProvider>
       <Footer />
     </>
   )
