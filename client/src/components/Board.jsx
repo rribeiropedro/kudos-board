@@ -1,16 +1,20 @@
 import React from "react"
 import '../styles/card.css'
-import useComponent from "../hooks/useComponent"
+import useKudos from "../hooks/useKudos"
 
 const Board = ({ id, title, category, img }) => {
 
-  const { components, setComponents } = useComponent()
+  const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
 
   const handleViewBoard = () => {
     console.log('here')
     fetch(`http://localhost:3000/api/cards/${id}`)
       .then(response => response.json())
-      .then(data => setComponents(data))
+      .then(data => {
+        setComponents(data)
+        setIsCard(true)
+        setCurrBoard(title)
+      })
       .catch(error => console.log(error))
   }
   

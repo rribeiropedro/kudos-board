@@ -1,10 +1,21 @@
 import React, { useState } from "react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
+import useKudos from "../hooks/useKudos"
 
 const Header = () => {
 
-  const [toggleReturn, setToggleReturn] = useState(false)
+  const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
+
+  const handleReturn = () => {
+    fetch("http://localhost:3000/api/boards")
+      .then(response => response.json())
+      .then(data => {
+        setCurrBoard('')
+        setComponents(data)
+        setIsCard(false)
+      })
+  }
 
   return (
     <>
@@ -19,15 +30,18 @@ const Header = () => {
           background: '#f5f5f5'
         }}
       >
-        {toggleReturn && (
-          <button style={{
-            marginRight: 'auto',
-            marginBottom: 'auto',
-            marginLeft: '10px',
-            marginTop: '10px',
-            border: 'none',
-            backgroundColor: 'transparent'
-          }}><FontAwesomeIcon size="3x" icon={faArrowLeft}></FontAwesomeIcon></button>
+        {currBoard && (
+          <button 
+            style={{
+              marginRight: 'auto',
+              marginBottom: 'auto',
+              marginLeft: '10px',
+              marginTop: '10px',
+              border: 'none',
+              backgroundColor: 'transparent'
+            }}
+            onClick={handleReturn}
+          ><FontAwesomeIcon size="3x" icon={faArrowLeft}></FontAwesomeIcon></button>
         )}
         <h1 style={{fontSize: '40px'}}>Kudos Board</h1>
       </header>

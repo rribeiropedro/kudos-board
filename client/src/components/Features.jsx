@@ -1,17 +1,18 @@
 import React, { useState } from "react"
+import useKudos from "../hooks/useKudos"
 import '../styles/features.css'
 
 const Features = () => {
 
-  const [openedCard, setOpenedCard] = useState(true)
+  const { currBoard, setCurrBoard } = useKudos()
 
   return (
     <div className="features-container">
-      {openedCard ? (
+      {currBoard ? (
         <>
-          <h1>Title</h1>
+          <h1>currBoard</h1>
           <div className="create-new-container">
-            <button>Create a New Board</button>
+            <button>Create a New Card</button>
           </div>
         </>
       ) : (
