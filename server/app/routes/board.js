@@ -28,9 +28,7 @@ router.get('/boards', async (req, res) => {
 })
 
 router.post('/boards', async (req, res) => {
-  const { author, category, title } = req.body
-  let { imgUrl } = req.body
-  !imgUrl && (imgUrl = null)
+  const { author, category, title, imgUrl } = req.body
   if (!author || typeof author !== 'string') {
     throw new ValidationError("Author is missing")
   } else if (!category || !allowedCategories.includes(category)) {
@@ -44,24 +42,24 @@ router.post('/boards', async (req, res) => {
       author,
       category,
       title,
-      imgUrl
+      imgUrl: imgUrl || null
     }
   })
   res.json(newBoard)
 })
 
 router.delete('/boards/:boardId', async (req, res) => {
-  const { boardId } = req.params
-  if (!boardId || isNaN(Number(boardId))) {
-    return res.status(400).json({ error: 'Invalid board ID' });
+  const boardId = Number(req.params.boardId);
+  if (!boardId || isNaN(boardId)) {
+    return res.status(400).json({ error: 'Invalid board ID' })
   }
   try {
     const deleteBoard = await prisma.board.delete({
       where: { id: Number(boardId) },
-    });
-    res.json(deleteBoard);
+    })
+    res.json(deleteBoard)
   } catch (error) {
-    res.status(404).json({ error: 'Board not found' });
+    res.status(404).json({ error: 'Board not found' })
   }
 })
 
