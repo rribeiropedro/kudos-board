@@ -6,6 +6,14 @@ const router = express.Router()
 const prisma = new PrismaClient()
 const allowedCategories = ["CELEBRATION", "THANK_YOU", "INSPIRATION"]
 
+function formatEnum(enumValue) {
+  return enumValue
+    .toLowerCase()
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
 router.get('/boards', async (req, res) => {
   const { title, category } = req.query
   const filters = {}
@@ -18,9 +26,13 @@ router.get('/boards', async (req, res) => {
   }
   try {
     const boards = await prisma.board.findMany({
-      where: filters
+      where: filters,
     })
-    res.status(200).json(boards)
+    const formattedBoards = boards.map(board => ({
+      ...board,
+      category: formatEnum(board.category),
+    }));
+    res.status(200).json(formattedBoards)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Server Error' })
@@ -44,7 +56,11 @@ router.post('/boards', async (req, res) => {
       imgUrl: imgUrl || null
     }
   })
-  res.status(200).json(newBoard)
+  const formattedNewBoard = {
+    ...newBoard,
+    category: formatEnum(newBoard.category)
+  }
+  res.status(200).json(formattedNewBoard)
 })
 
 router.delete('/boards/:boardId', async (req, res) => {
