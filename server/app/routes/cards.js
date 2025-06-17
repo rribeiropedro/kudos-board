@@ -34,8 +34,7 @@ router.post('/cards', async (req, res) => {
     throw new ValidationError("Board Id is missing")
   }
   try {
-    console.log('here')
-    await prisma.card.create({
+    const newCard = await prisma.card.create({
       data: {
         title: title,
         message: message,
@@ -44,7 +43,7 @@ router.post('/cards', async (req, res) => {
         boardId: boardId
       }
     })
-    res.status(200).json({ message: "all good"})
+    res.status(200).json(newCard)
   } catch (error) {
     res.status(404).json({ error: 'Board not found'})
   }
@@ -56,10 +55,10 @@ router.delete('/cards/:cardId', async (req, res) => {
     return res.status(400).json({ error: 'Invalid card ID' })
   }
   try {
-    const deleteCard = await prisma.card.delete({
-      where: { id: Number(cardId) },
+    await prisma.card.delete({
+      where: { id: cardId },
     })
-    res.json(deleteCard)
+    res.status(200).json(deleteCard)
   } catch (error) {
     res.status(404).json({ error: 'Card not found' })
   }

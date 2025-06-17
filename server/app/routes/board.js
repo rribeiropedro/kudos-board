@@ -36,7 +36,6 @@ router.post('/boards', async (req, res) => {
   } else if (!title || typeof title !== 'string') {
     throw new ValidationError("Category is missing")
   }
-  console.log(author, category, title, imgUrl)
   const newBoard = await prisma.board.create({
     data: {
       author,
@@ -45,19 +44,23 @@ router.post('/boards', async (req, res) => {
       imgUrl: imgUrl || null
     }
   })
-  res.json(newBoard)
+  res.status(200).json(newBoard)
 })
 
 router.delete('/boards/:boardId', async (req, res) => {
-  const boardId = Number(req.params.boardId);
+  const boardId = Number(req.params.boardId)
   if (!boardId || isNaN(boardId)) {
     return res.status(400).json({ error: 'Invalid board ID' })
   }
   try {
-    const deleteBoard = await prisma.board.delete({
-      where: { id: Number(boardId) },
+    await prisma.card.deleteMany({
+      where: { boardId: boardId },
     })
-    res.json(deleteBoard)
+    console.log('here')
+    await prisma.board.delete({
+      where: { id: boardId },
+    })
+    res.status(200).json("Success")
   } catch (error) {
     res.status(404).json({ error: 'Board not found' })
   }
