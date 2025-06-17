@@ -7,14 +7,14 @@ const prisma = new PrismaClient()
 const allowedCategories = ["CELEBRATION", "THANK_YOU", "INSPIRATION"]
 
 router.get('/boards', async (req, res) => {
-  const { category, title } = req.query
+  const { title, category } = req.query
   const filters = {}
   title && (filters.title = {
       contains: title,
       mode: "insensitive"
     })
-  if (allowedCategories.includes(category)) {
-    filters.category = category
+  if (category && allowedCategories.includes(category.toUpperCase())) {
+    filters.category = category.toUpperCase()
   }
   try {
     const boards = await prisma.board.findMany({
