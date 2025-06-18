@@ -4,7 +4,7 @@ import useKudos from "../hooks/useKudos"
 
 const Board = ({ id, title, category, img }) => {
 
-  const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
+  const { components, setComponents, setIsCard, setCurrBoard, setCurrBoardId } = useKudos()
 
   const handleViewBoard = () => {
     fetch(`http://localhost:3000/api/cards/${id}`)
@@ -13,6 +13,7 @@ const Board = ({ id, title, category, img }) => {
         setIsCard(true)
         setCurrBoard(title)
         setComponents(data)
+        setCurrBoardId(id)
       })
       .catch(error => console.log(error))
   }

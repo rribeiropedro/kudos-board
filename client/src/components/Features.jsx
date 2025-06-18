@@ -1,11 +1,18 @@
 import React, { useState } from "react"
 import useKudos from "../hooks/useKudos"
 import BoardModal from "./BoardModal"
+import CardModal from "./CardModal"
 import '../styles/features.css'
 
 const Features = () => {
-
-  const { currBoard, setCurrBoard, components, setComponents, toggleBoardModal, setToggleBoardModal } = useKudos()
+  const { 
+    currBoard, 
+    components, 
+    setComponents, 
+    toggleBoardModal, 
+    setToggleBoardModal, 
+    toggleCardModal, 
+    setToggleCardModal } = useKudos()
   const [search, setSearch] = useState('')
 
   const fetchBoards = (query, filter) => {
@@ -36,9 +43,10 @@ const Features = () => {
       <div className="features-container">
       {currBoard ? (
         <>
-          <h1>currBoard</h1>
+          {toggleCardModal && <CardModal />}
+          <h1 style={{marginTop: '20px'}}>{currBoard}</h1>
           <div className="create-new-container">
-            <button>Create a New Card</button>
+            <button style={{marginTop: '20px'}} onClick={() => setToggleCardModal(true)}>Create a New Card</button>
           </div>
         </>
       ) : (

@@ -26,6 +26,7 @@ router.get('/cards/:boardId', async (req, res) => {
 router.post('/cards', async (req, res) => {
   const { title, message, gifUrl } = req.body
   let boardId = Number(req.body.boardId)
+  console.log(title, message, gifUrl, boardId)
   if (!title || typeof title !== 'string') {
     throw new ValidationError("Title is missing")
   } else if (!message || typeof message !== 'string') {

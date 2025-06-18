@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import useKudos from "../hooks/useKudos"
-import '../styles/board-modal.css'
+import '../styles/modal.css'
 
 const BoardModal = () => {
 

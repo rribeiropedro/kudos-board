@@ -2,7 +2,7 @@ import React from "react"
 import '../styles/card.css'
 import useKudos from "../hooks/useKudos"
 
-const Card = ({ id, title, message, img, upvotes, boardId }) => {
+const Card = ({ id, title, message, video, upvotes, boardId }) => {
 
   const { components, setComponents } = useKudos()
 
@@ -31,7 +31,14 @@ const Card = ({ id, title, message, img, upvotes, boardId }) => {
       <div className="card-info">
         <h1>{title}</h1>
         <h3>{message}</h3>
-        <img className="card-img"/>
+        <video 
+          src={video}
+          className="card-img"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
       </div>
       <div className="card-btn-container">
         <button onClick={handleUpvote}>Update: {upvotes}</button>

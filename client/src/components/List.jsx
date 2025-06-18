@@ -31,7 +31,7 @@ const List = () => {
               id={item.id}
               title={item.title}
               message={item.message}
-              img={item.gifUrl}
+              video={item.gifUrl}
               upvotes={item.upvotes}
               boardId={item.boardId}
             />) : (<Board
