@@ -40,7 +40,7 @@ const Board = ({ id, title, category, img }) => {
   return (
     <div className="card-container">
       <div className="card-info">
-        <img className="board-img" />
+        <img className="board-img" src={img && (img)} />
         <h1>{title}</h1>
         <h3>{category}</h3>
         <div className="board-btn-container">
