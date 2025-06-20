@@ -86,7 +86,7 @@ const CardModal = () => {
                     <button 
                       className="gif-search-button"
                       onClick={handleGifSubmit}
-                      type="button" // Prevents form submit on GIF search
+                      type="button" 
                     >
                       Submit
                     </button>

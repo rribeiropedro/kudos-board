@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react"
 import Board from "./Board"
-import Card from "./Card"
 import useKudos from "../hooks/useKudos"
 import '../styles/list.css'
 
-const List = () => {
+const BoardList = () => {
 
   const url = "http://localhost:3000/api/"
-  const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
+  const { components, setComponents } = useKudos()
 
   useEffect(() => {
     fetch(url + "boards")
@@ -20,27 +19,18 @@ const List = () => {
     <div className="grid-container">
       <div className="grid-content">
         <div className="grid-title">
-          {isCard ? <h1>{currBoard}</h1> : <h1>Boards</h1>}
+          <h1>Boards</h1>
           <hr />
         </div>
         <div className="grid">
           {components.map((item) => (
-            isCard ? 
-            (<Card 
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              message={item.message}
-              video={item.gifUrl}
-              upvotes={item.upvotes}
-              boardId={item.boardId}
-            />) : (<Board
+            <Board
               key={item.id}
               id={item.id}
               title={item.title}
               category={item.category}
               img={item.imgUrl}
-            />)
+            />
           ))}
         </div>
       </div>
@@ -48,4 +38,4 @@ const List = () => {
   )
 }
 
-export default List
+export default BoardList

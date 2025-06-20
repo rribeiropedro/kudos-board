@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
 import useKudos from "../hooks/useKudos"
@@ -7,11 +8,14 @@ const Header = () => {
 
   const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
 
+  const navigate = useNavigate()
+
   const handleReturn = () => {
     fetch("http://localhost:3000/api/boards")
       .then(response => response.json())
       .then(data => {
         setCurrBoard('')
+        navigate('/')
         setComponents(data)
         setIsCard(false)
       })

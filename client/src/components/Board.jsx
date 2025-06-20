@@ -1,10 +1,12 @@
 import React from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import '../styles/card.css'
 import useKudos from "../hooks/useKudos"
 
 const Board = ({ id, title, category, img }) => {
 
   const { components, setComponents, setIsCard, setCurrBoard, setCurrBoardId } = useKudos()
+  const navigate = useNavigate()
 
   const handleViewBoard = () => {
     fetch(`http://localhost:3000/api/cards/${id}`)
@@ -14,6 +16,7 @@ const Board = ({ id, title, category, img }) => {
         setCurrBoard(title)
         setComponents(data)
         setCurrBoardId(id)
+        navigate(`/boards/${id}`)
       })
       .catch(error => console.log(error))
   }
