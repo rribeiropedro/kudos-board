@@ -7,11 +7,11 @@ import useKudos from "../hooks/useKudos"
 const Header = () => {
 
   const { components, setComponents, setIsCard, currBoard, setCurrBoard, setDarkMode } = useKudos()
-
+  const url = import.meta.env.VITE_APP_SERVER_URL
   const navigate = useNavigate()
 
   const handleReturn = () => {
-    fetch("http://localhost:3000/api/boards")
+    fetch(url + "boards")
       .then(response => response.json())
       .then(data => {
         setCurrBoard('')

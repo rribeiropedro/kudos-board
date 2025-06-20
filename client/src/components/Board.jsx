@@ -5,11 +5,12 @@ import useKudos from "../hooks/useKudos"
 
 const Board = ({ id, title, category, img }) => {
 
-  const { components, setComponents, setIsCard, setCurrBoard } = useKudos()
+  const { components, setComponents, setIsCard, setCurrBoard, setCurrBoardId } = useKudos()
   const navigate = useNavigate()
+  const url = import.meta.env.VITE_APP_SERVER_URL
 
   const handleViewBoard = async () => {
-    const response = await fetch(`http://localhost:3000/api/cards/${id}`)
+    const response = await fetch(url + `cards/${id}`)
     const data = await response.json()
     const newList = [...data].sort((a, b) => {
       if (a.pinned !== b.pinned) {
@@ -23,13 +24,14 @@ const Board = ({ id, title, category, img }) => {
     })
     setIsCard(true)
     setCurrBoard(title)
+    setCurrBoardId(id)
     setComponents(newList)
     navigate(`/boards/${id}`) 
   }
 
   const handleDeleteBoard = () => {
     console.log(id)
-    fetch(`http://localhost:3000/api/boards/${id}`, {method: 'DELETE'})
+    fetch(url + `boards/${id}`, {method: 'DELETE'})
       .then(response => {
         setComponents(components.filter(item => item.id !== id))
       })

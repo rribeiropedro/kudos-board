@@ -7,16 +7,17 @@ import {faThumbtack} from "@fortawesome/free-solid-svg-icons"
 const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
 
   const { components, setComponents } = useKudos()
+  const url = import.meta.env.VITE_APP_SERVER_URL
 
   const handleDeleteCard = () => {
-    fetch(`http://localhost:3000/api/cards/${id}`, {method: 'DELETE'})
+    fetch(url + `cards/${id}`, {method: 'DELETE'})
       .then(response => {
         setComponents(components.filter(item => item.id !== id))
       })
   }
 
   const handleUpvote = () => {
-    fetch(`http://localhost:3000/api/cards/${id}/upvote`, {method: 'PUT'})
+    fetch(url + `cards/${id}/upvote`, {method: 'PUT'})
       .then(respone => respone.json())
       .then(data => {
         const index = components.findIndex(item => item.id === id)
@@ -29,7 +30,7 @@ const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
   }
 
   const sortWithPin = async () => {
-    const response = await fetch(`http://localhost:3000/api/cards/${boardId}`)
+    const response = await fetch(url + `cards/${boardId}`)
     const data = await response.json()
     const newList = [...data].sort((a, b) => {
       if (a.pinned !== b.pinned) {
@@ -45,7 +46,7 @@ const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
   }
 
   const handlePin = async () => {
-    await fetch(`http://localhost:3000/api/cards/${id}/pin`, {method: 'PUT'})
+    await fetch(url + `cards/${id}/pin`, {method: 'PUT'})
     const sorted = await sortWithPin()
     setComponents(sorted)
   }

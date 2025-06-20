@@ -7,10 +7,6 @@ const CardList = () => {
 
   const { components, setComponents, currBoard, setCurrBoard } = useKudos()
 
-  useEffect(() => {
-    console.log(components)
-  }, [components])
-
   return (
     <div className="grid-container">
       <div className="grid-content">

@@ -4,7 +4,7 @@ import '../styles/modal.css'
 
 const CardModal = () => {
 
-  const { setToggleCardModal, currBoardId } = useKudos()
+  const { setToggleCardModal, currBoardId, setComponents } = useKudos()
   const [title, setTitle] = useState('')
   const [message, setMessage] = useState('')
   const [gifQuery, setGifQuery] = useState('')
@@ -12,6 +12,7 @@ const CardModal = () => {
   const [gifUrl, setGifUrl] = useState('')
   const [gifSelected, setGifSelected] = useState(false)
   const giphyKey = import.meta.env.VITE_APP_GIPHY_KEY
+  const url = import.meta.env.VITE_APP_SERVER_URL
 
   const handleGifSubmit = (event) => {
     event.preventDefault()
@@ -22,7 +23,7 @@ const CardModal = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
-    fetch("http://localhost:3000/api/cards", {
+    fetch(url + "cards", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

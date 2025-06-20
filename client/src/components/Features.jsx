@@ -16,15 +16,16 @@ const Features = () => {
     setToggleCardModal
   } = useKudos()
   const [search, setSearch] = useState('')
+  let url = import.meta.env.VITE_APP_SERVER_URL
 
   const fetchBoards = (query, filter) => {
-    let url = "http://localhost:3000/api/boards"
-    query && (url += `?category=${query}`)
+    query && (url += `boards?category=${query}`)
+    filter && (url += "boards" )
     fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      filter ? setComponents(data.slice(0, 6)) : setComponents(data)
-    })
+      .then(response => response.json())
+      .then(data => {
+        filter ? setComponents(data.slice(0, 6)) : setComponents(data)
+      })
   }
 
   const handleSearchSubmit = () => {
@@ -34,7 +35,7 @@ const Features = () => {
 
   const handleClearButton = () => {
     setSearch('')
-    fetch("http://localhost:3000/api/boards")
+    fetch(url + "boards")
       .then(response => response.json())
       .then(data => setComponents(data))
       .catch(error => {console.error('Error fetching components:', error)})

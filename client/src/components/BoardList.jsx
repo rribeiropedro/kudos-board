@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom"
 import '../styles/list.css'
 
 const BoardList = () => {
-
-  const url = "http://localhost:3000/api/"
+  const url = import.meta.env.VITE_APP_SERVER_URL
   const { components, setComponents } = useKudos()
   const navigate = useNavigate()
 
@@ -15,7 +14,6 @@ const BoardList = () => {
       .then(response => response.json())
       .then(data => {
         setComponents(data)
-        navigate('/')
       })
       .catch(error => {console.error('Error fetching components:', error)})
   }, [])

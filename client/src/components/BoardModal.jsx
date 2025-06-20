@@ -8,10 +8,11 @@ const BoardModal = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [category, setCategory] = useState('')
+  const url = import.meta.env.VITE_APP_SERVER_URL
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
-    fetch("http://localhost:3000/api/boards", {
+    fetch(url + "boards", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +25,6 @@ const BoardModal = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         setComponents(prev => [...prev, data])
       })
     setToggleBoardModal(false)
