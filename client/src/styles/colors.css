@@ -1,0 +1,13 @@
+:root {
+  --text: black;
+  --boards: white;
+  --buttons: #44AF86;
+  --background: #f5f5f5
+}
+
+.dark {
+  --text: white;
+  --boards: black;
+  --buttons: #44AF86;
+  --background: #2b2b2b;
+}

@@ -1,20 +1,30 @@
 import React from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import '../styles/card.css'
 import useKudos from "../hooks/useKudos"
 
 const Board = ({ id, title, category, img }) => {
 
-  const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
+  const { components, setComponents, setIsCard, setCurrBoard } = useKudos()
+  const navigate = useNavigate()
 
-  const handleViewBoard = () => {
-    fetch(`http://localhost:3000/api/cards/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        setIsCard(true)
-        setCurrBoard(title)
-        setComponents(data)
-      })
-      .catch(error => console.log(error))
+  const handleViewBoard = async () => {
+    const response = await fetch(`http://localhost:3000/api/cards/${id}`)
+    const data = await response.json()
+    const newList = [...data].sort((a, b) => {
+      if (a.pinned !== b.pinned) {
+        return a.pinned ? -1 : 1;
+      }
+      if (a.pinned && b.pinned) {
+        return new Date(b.pinnedTime) - new Date(a.pinnedTime);
+      } else {
+        return a.id - b.id;
+      }
+    })
+    setIsCard(true)
+    setCurrBoard(title)
+    setComponents(newList)
+    navigate(`/boards/${id}`) 
   }
 
   const handleDeleteBoard = () => {
@@ -24,7 +34,7 @@ const Board = ({ id, title, category, img }) => {
         setComponents(components.filter(item => item.id !== id))
       })
   }
-  
+
   return (
     <div className="card-container">
       <div className="card-info">

@@ -72,7 +72,6 @@ router.delete('/boards/:boardId', async (req, res) => {
     await prisma.card.deleteMany({
       where: { boardId: boardId },
     })
-    console.log('here')
     await prisma.board.delete({
       where: { id: boardId },
     })

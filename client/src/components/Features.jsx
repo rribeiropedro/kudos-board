@@ -1,11 +1,21 @@
 import React, { useState } from "react"
 import useKudos from "../hooks/useKudos"
 import BoardModal from "./BoardModal"
+import CardModal from "./CardModal"
+import { Navigate, useNavigate } from "react-router-dom"
 import '../styles/features.css'
 
 const Features = () => {
-
-  const { currBoard, setCurrBoard, components, setComponents, toggleBoardModal, setToggleBoardModal } = useKudos()
+  const { 
+    currBoard, 
+    components, 
+    setComponents, 
+    toggleBoardModal, 
+    setToggleBoardModal, 
+    toggleCardModal, 
+    setToggleCardModal
+  } = useKudos()
+  const [search, setSearch] = useState('')
 
   const fetchBoards = (query, filter) => {
     let url = "http://localhost:3000/api/boards"
@@ -17,23 +27,44 @@ const Features = () => {
     })
   }
 
+  const handleSearchSubmit = () => {
+    const newList = [...components].filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
+    setComponents(newList)
+  }
+
+  const handleClearButton = () => {
+    setSearch('')
+    fetch("http://localhost:3000/api/boards")
+      .then(response => response.json())
+      .then(data => setComponents(data))
+      .catch(error => {console.error('Error fetching components:', error)})
+  }
+
   return (
     <>
-      {toggleBoardModal && <BoardModal />}
       <div className="features-container">
       {currBoard ? (
         <>
-          <h1>currBoard</h1>
+          {toggleCardModal && <CardModal />}
+          <h1 style={{marginTop: '20px', color: 'var(--text)'}}>{currBoard}</h1>
           <div className="create-new-container">
-            <button>Create a New Card</button>
+            <button style={{marginTop: '20px'}} onClick={() => {
+              setToggleCardModal(true)
+            }}>Create a New Card</button>
           </div>
         </>
       ) : (
         <>
+          {toggleBoardModal && <BoardModal />}
           <div className="search-container">
-            <input placeholder="Search Boards..." className="search-input"/>
-            <button>Search</button>
-            <button>Clear</button>
+            <input 
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search Boards..."
+              className="search-input"
+            />
+            <button onClick={handleSearchSubmit}>Search</button>
+            <button onClick={handleClearButton}>Clear</button>
           </div>
           <div className="sort-container">
             <button onClick={fetchBoards}>All</button>

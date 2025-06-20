@@ -1,8 +1,10 @@
 import React from "react"
 import '../styles/card.css'
 import useKudos from "../hooks/useKudos"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faThumbtack} from "@fortawesome/free-solid-svg-icons"
 
-const Card = ({ id, title, message, img, upvotes, boardId }) => {
+const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
 
   const { components, setComponents } = useKudos()
 
@@ -26,12 +28,44 @@ const Card = ({ id, title, message, img, upvotes, boardId }) => {
       })
   }
 
+  const sortWithPin = async () => {
+    const response = await fetch(`http://localhost:3000/api/cards/${boardId}`)
+    const data = await response.json()
+    const newList = [...data].sort((a, b) => {
+      if (a.pinned !== b.pinned) {
+        return a.pinned ? -1 : 1;
+      }
+      if (a.pinned && b.pinned) {
+        return new Date(b.pinnedTime) - new Date(a.pinnedTime);
+      } else {
+        return a.id - b.id;
+      }
+    })
+    return newList
+  }
+
+  const handlePin = async () => {
+    await fetch(`http://localhost:3000/api/cards/${id}/pin`, {method: 'PUT'})
+    const sorted = await sortWithPin()
+    setComponents(sorted)
+  }
+
   return (
     <div className="card-container">
       <div className="card-info">
-        <h1>{title}</h1>
+        <div style={{display: 'flex', width: '100%', alignContent: 'center', justifyContent: 'space-between'}}>
+          <h1>{title}</h1>
+          <button style={{border: 'none', backgroundColor: 'transparent'}}onClick={handlePin}><FontAwesomeIcon style={pinned ? {color: 'var(--buttons)'} : {color: 'var(--text'}} icon={faThumbtack} /></button>
+        </div>
         <h3>{message}</h3>
-        <img className="card-img"/>
+        <video 
+          src={video}
+          className="card-img"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
       </div>
       <div className="card-btn-container">
         <button onClick={handleUpvote}>Update: {upvotes}</button>
