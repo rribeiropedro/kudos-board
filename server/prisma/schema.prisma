@@ -17,13 +17,15 @@ model Board {
 }
 
 model Card {
-  id      Int    @id @default(autoincrement())
-  title   String
-  message String
-  gifUrl  String?
-  upvotes Int
-  boardId Int
-  board   Board  @relation(fields: [boardId], references: [id])
+  id          Int    @id @default(autoincrement())
+  title       String
+  message     String
+  gifUrl      String?
+  upvotes     Int
+  boardId     Int
+  pinned      Boolean
+  pinnedTime  DateTime?
+  board       Board  @relation(fields: [boardId], references: [id])
 }
 
 enum Category {

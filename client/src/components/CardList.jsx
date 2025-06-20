@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import Board from "./Board"
 import Card from "./Card"
 import useKudos from "../hooks/useKudos"
 import '../styles/list.css'
@@ -7,6 +6,10 @@ import '../styles/list.css'
 const CardList = () => {
 
   const { components, setComponents, currBoard, setCurrBoard } = useKudos()
+
+  useEffect(() => {
+    console.log(components)
+  }, [components])
 
   return (
     <div className="grid-container">
@@ -25,6 +28,7 @@ const CardList = () => {
               video={item.gifUrl}
               upvotes={item.upvotes}
               boardId={item.boardId}
+              pinned={item.pinned}
             />
           ))}
         </div>
