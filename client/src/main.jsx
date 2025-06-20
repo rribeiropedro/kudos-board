@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import CardList from './components/CardList.jsx'
 import { KudosProvider } from './context/KudosContext.jsx'
 import { createBrowserRouter, RouterProvider} from "react-router-dom"
 

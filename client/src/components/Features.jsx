@@ -14,9 +14,8 @@ const Features = () => {
     setToggleBoardModal, 
     toggleCardModal, 
     setToggleCardModal
-    } = useKudos()
+  } = useKudos()
   const [search, setSearch] = useState('')
-  const navigate = useNavigate()
 
   const fetchBoards = (query, filter) => {
     let url = "http://localhost:3000/api/boards"
@@ -47,7 +46,7 @@ const Features = () => {
       {currBoard ? (
         <>
           {toggleCardModal && <CardModal />}
-          <h1 style={{marginTop: '20px'}}>{currBoard}</h1>
+          <h1 style={{marginTop: '20px', color: 'var(--text)'}}>{currBoard}</h1>
           <div className="create-new-container">
             <button style={{marginTop: '20px'}} onClick={() => {
               setToggleCardModal(true)

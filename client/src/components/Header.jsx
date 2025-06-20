@@ -6,7 +6,7 @@ import useKudos from "../hooks/useKudos"
 
 const Header = () => {
 
-  const { components, setComponents, isCard, setIsCard, currBoard, setCurrBoard } = useKudos()
+  const { components, setComponents, setIsCard, currBoard, setCurrBoard, setDarkMode } = useKudos()
 
   const navigate = useNavigate()
 
@@ -31,7 +31,7 @@ const Header = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          background: '#f5f5f5'
+          background: 'var(--background)'
         }}
       >
         {currBoard && (
@@ -41,13 +41,28 @@ const Header = () => {
               marginBottom: 'auto',
               marginLeft: '10px',
               marginTop: '10px',
+              color: 'var(--text)',
               border: 'none',
               backgroundColor: 'transparent'
             }}
             onClick={handleReturn}
           ><FontAwesomeIcon size="3x" icon={faArrowLeft}></FontAwesomeIcon></button>
         )}
-        <h1 style={{fontSize: '40px'}}>Kudos Board</h1>
+        <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+          <h1 style={{fontSize: '40px', color: 'var(--text)'}}>Kudos Board</h1>
+          <button 
+            style={{
+              padding: '0px 10px',
+              height: '60%',
+              background: 'var(--background)',
+              color: 'var(--text)',
+              borderRadius: '20px'
+            }}
+            onClick={() => setDarkMode(prev => !prev)}
+          >
+            Toggle Mode
+          </button>
+        </div>
       </header>
     </>
   )

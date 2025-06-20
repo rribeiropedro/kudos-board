@@ -19,7 +19,7 @@ const BoardList = () => {
     <div className="grid-container">
       <div className="grid-content">
         <div className="grid-title">
-          <h1>Boards</h1>
+          <h1 style={{color: 'var(--text)'}}>Boards</h1>
           <hr />
         </div>
         <div className="grid">

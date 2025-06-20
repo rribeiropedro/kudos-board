@@ -6,6 +6,7 @@ import CardList from "./components/CardList"
 import Footer from "./components/Footer"
 import useKudos from "./hooks/useKudos"
 import './styles/app.css'
+import './styles/colors.css'
 
 function App() {
 

@@ -1,14 +1,14 @@
 .card-container {
   width: 240px;
   min-height: 420px;
-  border: 3px solid black;
+  border: 3px solid var(--text);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   transition: transform 0.3s ease;
-  background-color: #ffffff;
-  color: black;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 .card-container:hover {
@@ -58,12 +58,12 @@
   padding: 4px 6px;
   font-size: 12px;
   border: none;
-  border: 2px solid black;
+  border: 2px solid var(--text);
   border-radius: 5px;
 }
 
 #board-delete-btn {
-  background-color: #44AF86;;
+  background-color: var(--buttons);;
 }
 
 .card-btn-container {
@@ -80,10 +80,10 @@
   padding: 4px 6px;
   font-size: 12px;
   border: none;
-  border: 2px solid black;
+  border: 2px solid var(--text);
   border-radius: 5px;
 }
 
 #card-delete-btn {
-  background-color: #44AF86;;
+  background-color: var(--buttons);;
 }
