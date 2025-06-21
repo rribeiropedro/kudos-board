@@ -9,6 +9,11 @@ const Board = ({ id, title, category, img }) => {
   const navigate = useNavigate()
   const url = import.meta.env.VITE_APP_SERVER_URL
 
+  /**
+   * This function fetches all the cards for the specific board
+   * from the database, and then sorts them based off thier pin 
+   * and time of creation, updates other helper state variables.
+   */
   const handleViewBoard = async () => {
     const response = await fetch(url + `cards/${id}`)
     const data = await response.json()
@@ -29,6 +34,10 @@ const Board = ({ id, title, category, img }) => {
     navigate(`/boards/${id}`) 
   }
 
+  /**
+   * This functions deletes a board from the database and
+   * updates the client side to reflect that change
+   */
   const handleDeleteBoard = () => {
     console.log(id)
     fetch(url + `boards/${id}`, {method: 'DELETE'})

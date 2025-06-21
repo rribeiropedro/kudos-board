@@ -9,6 +9,10 @@ const BoardList = () => {
   const { components, setComponents } = useKudos()
   const navigate = useNavigate()
 
+  /**
+   * This useEffect makes sure that all boards are fetched
+   * and displayed by setting the data in a state variable
+   */
   useEffect(() => {
     fetch(url + "boards")
       .then(response => response.json())

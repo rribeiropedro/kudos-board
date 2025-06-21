@@ -4,12 +4,21 @@ import '../styles/modal.css'
 
 const BoardModal = () => {
 
-  const { components, setComponents, setToggleBoardModal } = useKudos()
+  const { setComponents, setToggleBoardModal } = useKudos()
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [category, setCategory] = useState('')
   const url = import.meta.env.VITE_APP_SERVER_URL
 
+  /**
+   * This function takes all the data from the state variables
+   * gathered in the form and sends a POST request to add a new
+   * board to the database, and updates the client side to reflect
+   * those changes.
+   * 
+   * @param {*} event = The type of event of the submission,
+   * which is the form and we prevent the page from reloading.
+   */
   const handleFormSubmit = (event) => {
     event.preventDefault()
     fetch(url + "boards", {

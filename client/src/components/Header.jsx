@@ -10,6 +10,10 @@ const Header = () => {
   const url = import.meta.env.VITE_APP_SERVER_URL
   const navigate = useNavigate()
 
+  /**
+   * Updates all states involed with going back to 
+   * the home page and use react-router to navigate.
+   */
   const handleReturn = () => {
     fetch(url + "boards")
       .then(response => response.json())

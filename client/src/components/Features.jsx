@@ -18,6 +18,17 @@ const Features = () => {
   const [search, setSearch] = useState('')
   let url = import.meta.env.VITE_APP_SERVER_URL
 
+  /**
+   * This function takes in a query and a filter and sends a
+   * GET request to the backend which responds with all the
+   * board that matched those parameters, which is then
+   * reflected on the cleint side.
+   * 
+   * @param {*} query - The input in the search container
+   * for the desired board
+   * @param {*} filter - Tells the request get all boards and
+   * then only display the first 6.
+   */
   const fetchBoards = (query, filter) => {
     query && (url += `boards?category=${query}`)
     filter && (url += "boards" )
@@ -28,11 +39,20 @@ const Features = () => {
       })
   }
 
+  /**
+   * Filters out the current components in the state variable 
+   * based off the query search and then updates the state variabel.
+   */
   const handleSearchSubmit = () => {
     const newList = [...components].filter(item => item.title.toLowerCase().includes(search.toLowerCase()))
     setComponents(newList)
   }
 
+  /**
+   * Clears any state variable associated with filtering and then
+   * sends a GET request for all boards and sets them for the client
+   * side to view.
+   */
   const handleClearButton = () => {
     setSearch('')
     fetch(url + "boards")

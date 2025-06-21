@@ -14,6 +14,15 @@ const CardModal = () => {
   const giphyKey = import.meta.env.VITE_APP_GIPHY_KEY
   const url = import.meta.env.VITE_APP_SERVER_URL
 
+  /**
+   * This function takes in an event as the param
+   * which prevents the form from refreshing the page, then
+   * using the form data makes a GET request to the giphy
+   * API to fetch the 6 top gifs based of the search.
+   * 
+   * @param {*} event - Form event which is used to 
+   * prevent the page from refreshing.
+   */
   const handleGifSubmit = (event) => {
     event.preventDefault()
     fetch(`https://api.giphy.com/v1/gifs/search?api_key=${giphyKey}&q=${gifQuery}&limit=6`, {method: 'GET'})

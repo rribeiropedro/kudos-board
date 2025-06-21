@@ -9,6 +9,10 @@ const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
   const { components, setComponents } = useKudos()
   const url = import.meta.env.VITE_APP_SERVER_URL
 
+  /**
+   * Sends a DELETE request to the server with the current
+   * card Id, then updates the frontend to reflect the change.
+   */
   const handleDeleteCard = () => {
     fetch(url + `cards/${id}`, {method: 'DELETE'})
       .then(response => {
@@ -16,6 +20,11 @@ const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
       })
   }
 
+  /**
+   * Sends a PUT request to the server with the card Id to 
+   * increment the upvote count, and then updates the client
+   * side to reflect the change.
+   */
   const handleUpvote = () => {
     fetch(url + `cards/${id}/upvote`, {method: 'PUT'})
       .then(respone => respone.json())
@@ -29,6 +38,13 @@ const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
       })
   }
 
+  /**
+   * A helper function that fetches all the  cards from the
+   * current board and sorts them primarily if they are pinned,
+   * then by pin time, and then by creation time.
+   * 
+   * @returns The new sorted list
+   */
   const sortWithPin = async () => {
     const response = await fetch(url + `cards/${boardId}`)
     const data = await response.json()
@@ -45,6 +61,11 @@ const Card = ({ id, title, message, video, upvotes, boardId, pinned }) => {
     return newList
   }
 
+  /**
+   * Sends the server a PUT request with the card Id to 
+   * turn the current pin boolean value to its NOT, then calls
+   * a sorting helper function.
+   */
   const handlePin = async () => {
     await fetch(url + `cards/${id}/pin`, {method: 'PUT'})
     const sorted = await sortWithPin()
