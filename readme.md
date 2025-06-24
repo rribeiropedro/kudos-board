@@ -2,9 +2,9 @@
 
 ## Unit Assignment: Kudos Board
 
-Submitted by: **NAME**
+Submitted by: **Pedro Rabadan Ribeiro**
 
-Deployed Application (**required**): [Kudos Board Deployed Site](ADD_LINK_HERE)
+Deployed Application (**required**): [Kudos Board Deployed Site](https://l.workplace.com/l.php?u=https%3A%2F%2Fkudos-board-client-84zp.onrender.com%2F&h=AT381j1gaeaQC3LHTYwMGGsOsIg0X4_bmr67YwcwXbtfOxfZ7orF-ykWK4Sh5jD0DGjkCvKQmu_EACbmrtKe2FYCU5aqsAvujDPzMJLBB7_J2ED5mrsu8guOjUKjMWNXicFLgGyBuvarJ5FFGyIAr7J8yAJGEHdb5ojRaQ)
 
 ### Application Features
 
